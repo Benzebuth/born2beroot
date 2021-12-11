@@ -1,4 +1,4 @@
 # born2beroot
 
-Crypt password : 12341234
+Crypt password : 2341234
 All password   : 1234
