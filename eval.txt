@@ -1,0 +1,91 @@
+POURQUOI CHOISIR DEBIAN ?
+	- Simple de prise en main, simple a set up
+	- Logiciel libre, code source ouvert
+	- Multiple architecture supportee
+	- Facilement manipulable
+	- Utilise apt-get comme package manager
+
+DIFFERENCE ENTRE APTITUDE / APT-GET :
+	- Aptitude : plus convivial, haut niveau d'abstraction
+	plus recent, censeer etre plus facile a utiliser
+	remplit les fonctions apt-get mais ajouter aussi certains outils supplementaires comme apt-cache ou apt-mark
+	si il y a conflit, aptitude suggere plusieurs solutions, pas apt
+
+APPARMOR, C'EST QUOI :
+	- Logiciel de securite sous linux
+	- Permet a un sysadmin d'associer a chaque programme un profil de securite qui restreint les acces a certains utilisateurs
+	- permet aussi d'utiliser le controle d'acces obligatoire (MAC, Mandatory Access Control)
+	- Plus facile a configurer que SELinux
+
+CHECK UFW, SSH .. :
+	- UFW : sudo ufw status
+	- SSH : sudo systemctl status ssh
+	- Systeme utilise : uname -a
+
+PARTIE USER :
+	- Check de l'existence d'un groupe : getent group <nom_groupe> (sudo et user42)
+	- Check password policy : sudo vim/etc/pam.d/common-password (tout est dedans)
+	- Creer user : sudo adduser <username>
+	- Explication des regles : minlen etc
+	- Creer groupe eval : sudo addgroup eval
+	- Assigner un user au groupe eval : sudo usermod -aG eval <username>
+
+HOSTNAME :
+	- Check hostname : hostnamectl
+	- Changer hostanme : hostnamectl set-hostname <new_hostname>
+	- Changer le nom dans fichier : sudo vim /etc/hosts
+	- Changer les noms et reboot
+	- Voir paritions : lsblk
+
+SUDO :
+	- Ajouter user group sudo : sudo usermod -aG sudo username
+	- Voir regles : sudo visudo ou sudo /etc/sudoers
+
+UFW : 
+	- Check : sudo ufw status
+	- UFW = outil de configuration simplifie en ligne de commandes. C'est simplement un pare-feu
+	- Ajouter regle : suo ufw allow 8080
+	- Supprimer : sudo ufw delete [numero regle, pas 8080]
+
+SSH : 
+	- Check ssh : sudo systemctl status ssh
+	- Protocole permettant etalbir communication chiffree entre une machine locale et une distante
+	- Se connecter en ssh : ssh <nom_utilisateur>@IPadress -p <num_port>
+	- (adress ip = hostname -I)
+
+SCRIPT : 
+	- wall : permet de diffuser un message sur tout les output
+	- df :
+		= disk free
+		commande UNIX pour afficher la valeur d'espace disque disponible des systemes de fichier dont l'utilisateur possede l'acces
+		df -h : espace disque libre est liste en format visible pour l'homme
+		df --si -BMB --total : permet d'afficher les lignes totales utiles pour ce dont j'avais besoin
+
+	- awk :
+		agit comme un filtre programmable prenant une série de lignes en entrée (sous forme de fichiers ou directement via l'entrée standard) et écrivant sur la sortie standard, qui peut être redirigée vers un autre fichier ou programme
+		syntaxe est inspiree du C : awk [options] [programme] [fichier]
+	- top :
+		sed to show the Linux processes. It provides a dynamic real-time view of the running system
+		-b : Batch mode = send output from top to file or any other programs
+		-n 1 : this command keep refreshing umtil we press 'q' -> with this top command will automatically exit after 1 number of repetition
+
+	- netstat :
+		-a : list all connections
+		-at : To list out only tcp connections use the -t options
+		-ant :  command shows ALL TCP connections with NO dns resolution
+		-n : for numeric, print address with numeric format
+
+	- id :
+		print real and effective user and groups IDs
+		-u : print only the effective user ID
+
+	- who :
+		show who is connected
+		-q : Affiche  uniquement les noms d'utilisateurs et le nombres de personnes connectées, priorité sur toutes les autres options
+
+	- Cron : programme qui permet d'executer automatiquement des scripts, des commandes, ou des logiciels a une heure ou date precise
+			 crontab -e : ouvrir fichier pour configurer (crontab etant le nom du programme qui permet d'editer)
+			 			  -e permet la modification 
+			 format : mm hh jj MMM JJJ tâche_a_executer
+			 exemple pour run toutes les 30s : * * * * *             bash /path/to/executable
+											   * * * * * ( sleep 30 ; bash /path/to/executable )
